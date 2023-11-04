@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="month">
+    <button (click)="forward()"><</button>
+    <h1 class="month__title">
+      {{ calendar.monthsNames[currentView.currMonth] }}
+    </h1>
+    <button (click)="back()">></button>
+  </div>
+  <div class="content">
+    <p class="content__title" *ngFor="let day of calendar.daysOfWeek">
+      {{ day }}
+    </p>
+    <div
+      *ngFor="let item of currentView.view"
+      (click)="modal.setData(item, currentView.currMonth)"
+      class="cell"
+      [ngClass]="
+        item.event || item.names || item.caption ? 'cell-active' : 'cell'
+      "
+    >
+      <div class="title">
+        <p class="title__day-of-weak">
+          {{ item.day }}
+        </p>
+      </div>
+      <div class="content__data">
+        <p class="content__data__item" *ngIf="item.event">
+          {{ item.event | maxLength : 10 }}
+        </p>
+        <p class="content__data__item" *ngIf="item.names">
+          {{ item.names | maxLength : 10 }}
+        </p>
+        <p class="content__data__item" *ngIf="item.caption">
+          {{ item.caption | maxLength : 10 }}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
